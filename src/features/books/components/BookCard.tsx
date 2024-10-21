@@ -8,8 +8,12 @@ interface BookCardProps {
 
 export default function BookCard(props: BookCardProps) {
     return (
-        <div>
-            <div>{props.book.isbn}</div>
+        <div className="content-card">
+            <div className="title">{props.book.title}</div>
+            <div className="info">
+                <div>{props.book.author}</div>
+                <div>{props.book.publicationYear}</div>
+            </div>
         </div>
     );
 }

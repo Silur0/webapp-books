@@ -1,0 +1,18 @@
+.content-card {
+    padding: 1rem 2rem;
+    background-color: var(--BACKGROUND_DARK_I);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    color: black;
+}
+
+.info {
+    color: var(--BACKGROUND_DARK_III);
+    text-align: right;
+}

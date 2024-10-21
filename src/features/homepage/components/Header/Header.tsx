@@ -31,7 +31,9 @@ export default function Header() {
                 {isAuth ? (
                     <>
                         <span className="header-user logged">
-                            {authContext?.data.username?.toUpperCase()}
+                            {authContext?.data.username
+                                ?.toUpperCase()
+                                .substring(0, 15)}
                         </span>
                         <button className="button" onClick={logout}>
                             Logout

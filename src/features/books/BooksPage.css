@@ -1,0 +1,8 @@
+.bookpage {
+    flex-grow: 3;
+    padding: 2rem;
+}
+
+.element + .element {
+    margin-top: 1rem;
+}

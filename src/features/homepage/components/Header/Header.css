@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 20rem;
+    padding: 1rem 2rem;
     height: 5rem;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .button:hover {
-    background-color: #365d95;
+    background-color: var(--PRIMARY_DARK_I);
 }
 
 .button:focus {

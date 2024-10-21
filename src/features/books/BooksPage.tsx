@@ -21,9 +21,13 @@ export default function BooksPage() {
     if (getBooksService.isLoading) return <div>LOADING ...</div>;
 
     return (
-        <div>
+        <div className="bookpage">
             {books.map((e) => {
-                return <BookCard book={e} />;
+                return (
+                    <div key={e.id} className="element">
+                        <BookCard book={e} />
+                    </div>
+                );
             })}
         </div>
     );
