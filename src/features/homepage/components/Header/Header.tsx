@@ -22,18 +22,28 @@ export default function Header() {
     };
 
     return (
-        <header>
-            <div>Titulo</div>
-            <div>
-                <span>
-                    {isAuth
-                        ? authContext?.data.username?.toUpperCase()
-                        : "GUEST"}
-                </span>
+        <header className="header">
+            <div className="header-title">
+                sword <br />
+                Book Collection
+            </div>
+            <div className="header-menu">
                 {isAuth ? (
-                    <button onClick={logout}>Logout</button>
+                    <>
+                        <span className="header-user logged">
+                            {authContext?.data.username?.toUpperCase()}
+                        </span>
+                        <button className="button" onClick={logout}>
+                            Logout
+                        </button>
+                    </>
                 ) : (
-                    <button onClick={login}>Login</button>
+                    <>
+                        <span className="header-user">GUEST</span>
+                        <button className="button" onClick={login}>
+                            Login
+                        </button>
+                    </>
                 )}
             </div>
         </header>

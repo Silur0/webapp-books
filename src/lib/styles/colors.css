@@ -3,12 +3,12 @@
     --SECONDARY: #ff8283;
 
     --BACKGROUND: #ffffff;
-    --BACKGROUND_DARKER: #efeae6;
+    --BACKGROUND_DARK_I: #efeae6;
+    --BACKGROUND_DARK_II: #bfbbb8;
+    --BACKGROUND_DARK_III: #8f8c8a;
+    --BACKGROUND_LIGHT_I: #fff6f6;
 
     /*
-    #efeae6
-    
-    #FFF6F6
     #F2F6FD
     */
 }

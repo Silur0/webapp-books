@@ -1,0 +1,46 @@
+.header {
+    background-color: var(--BACKGROUND_LIGHT_I);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 20rem;
+    height: 5rem;
+}
+
+.header-title {
+    font-size: 1.75rem;
+    color: var(--SECONDARY);
+}
+
+.header-menu {
+}
+
+.header-user {
+    align-items: center;
+    padding: 0 2rem;
+    color: var(--BACKGROUND_DARK_II);
+}
+
+.logged {
+    color: var(--BACKGROUND_DARK_III);
+}
+
+.button {
+    background-color: var(--PRIMARY);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #365d95;
+}
+
+.button:focus {
+    outline: none;
+}
