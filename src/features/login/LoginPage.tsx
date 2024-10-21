@@ -1,25 +1,23 @@
 import { useContext, useState } from "react";
 
 import AuthContext from "../../lib/authentication/AuthContext";
-import axios from "axios";
+import AuthService from "../../lib/authentication/AuthService";
+import { useServiceCall } from "../../lib/utils/ServiceCall";
 
 export default function LoginPage() {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const authContext = useContext(AuthContext);
 
+    const loginService = useServiceCall(AuthService.Login);
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
-            // Replace with your authentication endpoint
-            const response = await axios.post("/api/login", {
-                username,
-                password,
-            });
-            const token: string = response.data.token;
+            const response = await loginService.invoke(username, password);
+            const token: string = response.token;
 
-            // Store the token using the context function
             if (authContext) {
                 authContext.login(token);
             }
