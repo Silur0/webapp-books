@@ -1,7 +1,15 @@
-import React, { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useMemo, useState } from "react";
+
+import { jwtDecode } from "jwt-decode";
+
+interface TokenData {
+    userId: string | null;
+    username: string | null;
+}
 
 interface AuthContextType {
     authToken: string | null;
+    data: TokenData;
     login: (token: string) => void;
     logout: () => void;
 }
@@ -17,6 +25,16 @@ export function AuthProvider(props: AuthProviderProps) {
         return localStorage.getItem("authToken") || null;
     });
 
+    const data = useMemo(() => {
+        return authToken
+            ? getDataFromToken(authToken)
+            : { userId: "", username: "" };
+    }, [authToken]);
+
+    function getDataFromToken(token: string) {
+        return jwtDecode(token) as { userId: string; username: string };
+    }
+
     const login = (token: string) => {
         setAuthToken(token);
         localStorage.setItem("authToken", token);
@@ -28,7 +46,7 @@ export function AuthProvider(props: AuthProviderProps) {
     };
 
     return (
-        <AuthContext.Provider value={{ authToken, login, logout }}>
+        <AuthContext.Provider value={{ authToken, data, login, logout }}>
             {props.children}
         </AuthContext.Provider>
     );

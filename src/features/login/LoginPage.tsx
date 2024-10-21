@@ -1,29 +1,42 @@
+import "./LoginPage.css";
+
 import { useContext, useState } from "react";
 
 import AuthContext from "../../lib/authentication/AuthContext";
 import AuthService from "../../lib/authentication/AuthService";
+import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 import { useServiceCall } from "../../lib/utils/ServiceCall";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
+    const authContext = useContext(AuthContext);
+
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const authContext = useContext(AuthContext);
+    const [error, setError] = useState("");
 
     const loginService = useServiceCall(AuthService.Login);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        try {
-            const response = await loginService.invoke(username, password);
-            const token: string = response.token;
+        await loginService
+            .invoke(username, password)
+            .then((data) => {
+                const token: string = data.token;
 
-            if (authContext) {
-                authContext.login(token);
-            }
-        } catch (error) {
-            console.error("Login failed", error);
-        }
+                if (authContext) {
+                    authContext.login(token);
+                    navigate("/");
+                }
+            })
+            .catch((error) => {
+                if (error instanceof AxiosError) {
+                    setError(error.response?.data.message);
+                    console.error("Login failed", error);
+                }
+            });
     };
     return (
         <form onSubmit={handleLogin}>
@@ -40,6 +53,7 @@ export default function LoginPage() {
                 placeholder="Password"
             />
             <button type="submit">Login</button>
+            <div>{error}</div>
         </form>
     );
 }
