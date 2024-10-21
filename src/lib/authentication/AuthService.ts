@@ -8,7 +8,6 @@ class AuthService {
     static readonly PREFIX = `/accounts`;
 
     async Login(username: string, password: string): Promise<LoginResponse> {
-        console.log(HttpClient.getUri);
         let result = await HttpClient.post(`${AuthService.PREFIX}/login`, {
             username,
             password,
