@@ -3,11 +3,16 @@ import "./CreateBookPage.css";
 import Select, { SingleValue } from "react-select";
 import { useEffect, useState } from "react";
 
+import { AllValid } from "../../../lib/components/inputs/validators/ValidateFormControls";
 import BaseLayout from "../../../lib/components/layouts/BaseLayout";
 import BookService from "../services/BookService";
+import CustomInput from "../../../lib/components/inputs/CustomInput";
 import LanguageService from "../services/LanguageService";
+import { useFormControl } from "../../../lib/components/inputs/form/FormControl";
 import { useNavigate } from "react-router-dom";
 import { useServiceCall } from "../../../lib/utils/ServiceCall";
+import { validateIsYear } from "../../../lib/components/inputs/validators/ValidateIsYear";
+import { validateRequiredField } from "../../../lib/components/inputs/validators/ValidateRequiredField";
 
 export default function CreateBookPage() {
     const navigate = useNavigate();
@@ -34,24 +39,42 @@ export default function CreateBookPage() {
         });
     }, []);
 
-    const [isbn, setIsbn] = useState<string>("");
-    const [title, setTitle] = useState<string>("");
-    const [author, setAuthor] = useState<string>("");
-    const [publicationYear, setPublicationYear] = useState<string>("");
+    const isbnFormControl = useFormControl<string>({
+        validators: [validateRequiredField()],
+    });
+    const titleFormControl = useFormControl<string>({
+        validators: [validateRequiredField()],
+    });
+    const authorFormControl = useFormControl<string>({
+        validators: [validateRequiredField()],
+    });
+    const publicationYearFormControl = useFormControl<string>({
+        validators: [validateRequiredField(), validateIsYear()],
+    });
     const [language, setLanguage] =
         useState<SingleValue<{ value: string; label: string }>>(null);
 
     const handleCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        createBookService
+        if (
+            !AllValid(
+                isbnFormControl.validate(),
+                titleFormControl.validate(),
+                authorFormControl.validate(),
+                publicationYearFormControl.validate()
+            )
+        )
+            return;
+
+        /* createBookService
             .invoke(isbn, title, author, publicationYear, language?.label!)
             .then((data) => {
                 navigate("/");
             })
             .catch((error) => {
                 console.log(error);
-            });
+            }); */
     };
 
     const handleCancel = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -62,36 +85,24 @@ export default function CreateBookPage() {
     return (
         <BaseLayout>
             <form className="create-book-form">
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                <CustomInput
                     placeholder="Title"
+                    formControl={titleFormControl}
                 />
-                <input
-                    type="text"
-                    value={isbn}
-                    onChange={(e) => setIsbn(e.target.value)}
-                    placeholder="ISBN"
-                />
-                <input
-                    type="text"
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
+                <CustomInput placeholder="ISBN" formControl={isbnFormControl} />
+                <CustomInput
                     placeholder="Author"
+                    formControl={authorFormControl}
                 />
-                <input
-                    type="text"
-                    value={publicationYear}
-                    onChange={(e) => setPublicationYear(e.target.value)}
+                <CustomInput
                     placeholder="Publication Year"
+                    formControl={publicationYearFormControl}
                 />
                 <Select
                     onChange={setLanguage}
                     options={languages}
                     placeholder="Language"
                 />
-                <div>{error}</div>
                 <div className="create-book-buttons">
                     <button onClick={handleCancel}>Cancel</button>
                     <button onClick={handleCreate}>Create</button>
