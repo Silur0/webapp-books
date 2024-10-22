@@ -1,0 +1,17 @@
+.base-layout-content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.base-layout-main {
+    width: 45rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.base-layout-box {
+    padding: 2rem;
+    background-color: var(--BACKGROUND_DARK_I);
+}

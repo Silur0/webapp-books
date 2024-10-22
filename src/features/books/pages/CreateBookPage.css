@@ -1,0 +1,10 @@
+.create-book-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.create-book-buttons {
+    display: flex;
+    justify-content: end;
+}

@@ -3,6 +3,7 @@ import "./CreateBookPage.css";
 import Select, { SingleValue } from "react-select";
 import { useEffect, useState } from "react";
 
+import BaseLayout from "../../../lib/components/layouts/BaseLayout";
 import BookService from "../services/BookService";
 import LanguageService from "../services/LanguageService";
 import { useNavigate } from "react-router-dom";
@@ -58,8 +59,8 @@ export default function CreateBookPage() {
     };
 
     return (
-        <div>
-            <form>
+        <BaseLayout>
+            <form className="create-book-form">
                 <input
                     type="text"
                     value={title}
@@ -89,9 +90,11 @@ export default function CreateBookPage() {
                     options={languages}
                     placeholder="Language"
                 />
-                <button onClick={handleCancel}>Cancel</button>
-                <button onClick={handleCreate}>Create</button>
+                <div className="create-book-buttons">
+                    <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={handleCreate}>Create</button>
+                </div>
             </form>
-        </div>
+        </BaseLayout>
     );
 }
