@@ -4,6 +4,20 @@
     width: 10rem;
 }
 
-.selects {
-    max-width: 20rem;
+.react-select-container {
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    appearance: none; /* Remove default dropdown arrow */
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
 }

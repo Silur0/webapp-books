@@ -4,6 +4,12 @@ import { Language } from "../models/Language";
 import PaginatedResponse from "../../../lib/api/PaginatedResponse";
 import { PublicationYear } from "../models/PublicationYear";
 
+interface SearchBookRequest {
+    key?: string;
+    years?: string[];
+    languages?: string[];
+}
+
 class BookService {
     static readonly PREFIX = `/books`;
 
@@ -19,6 +25,29 @@ class BookService {
 
     async getPublicationYears(): Promise<PaginatedResponse<PublicationYear>> {
         let result = await HttpClient.get(`${BookService.PREFIX}/years`);
+        return result.data;
+    }
+
+    async search(
+        key: string,
+        years: string[],
+        languages: string[]
+    ): Promise<PaginatedResponse<Book>> {
+        let request: SearchBookRequest = {
+            years,
+            languages,
+        };
+
+        if (key) {
+            request.key = key;
+        }
+
+        console.log(request);
+
+        let result = await HttpClient.post(
+            `${BookService.PREFIX}/search`,
+            request
+        );
         return result.data;
     }
 }
