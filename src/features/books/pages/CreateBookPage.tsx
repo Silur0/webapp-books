@@ -11,6 +11,7 @@ import { useServiceCall } from "../../../lib/utils/ServiceCall";
 
 export default function CreateBookPage() {
     const navigate = useNavigate();
+    const [error, setError] = useState("");
 
     const [languages, setLanguages] = useState<
         {
@@ -90,6 +91,7 @@ export default function CreateBookPage() {
                     options={languages}
                     placeholder="Language"
                 />
+                <div>{error}</div>
                 <div className="create-book-buttons">
                     <button onClick={handleCancel}>Cancel</button>
                     <button onClick={handleCreate}>Create</button>

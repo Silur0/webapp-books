@@ -2,9 +2,11 @@ import "./BookPopup.css";
 
 import { FaRegTrashCan, FaX } from "react-icons/fa6";
 
+import AuthContext from "../../../../lib/authentication/AuthContext";
 import Book from "../../models/Book";
 import { FaEdit } from "react-icons/fa";
 import Modal from "react-modal";
+import { useContext } from "react";
 
 interface BookPopupProps {
     book: Book;
@@ -13,6 +15,8 @@ interface BookPopupProps {
 }
 
 export default function BookPopup(props: BookPopupProps) {
+    const authContext = useContext(AuthContext);
+
     const closeModal = () => {
         props.setIsOpen(false);
     };
@@ -27,8 +31,12 @@ export default function BookPopup(props: BookPopupProps) {
                 <div className="modal-header">
                     <h2 className="modal-header-title">{props.book.title}</h2>
                     <div className="modal-icons">
-                        <FaEdit className="modal-icon" />
-                        <FaRegTrashCan className="modal-icon" />
+                        {authContext?.authToken ? (
+                            <>
+                                <FaEdit className="modal-icon" />
+                                <FaRegTrashCan className="modal-icon" />
+                            </>
+                        ) : null}
                         <FaX className="modal-icon" onClick={closeModal} />
                     </div>
                 </div>
