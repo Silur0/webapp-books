@@ -1,4 +1,9 @@
 .sidebar {
     flex-grow: 1;
     padding: 2rem;
+    width: 10rem;
+}
+
+.selects {
+    max-width: 20rem;
 }
