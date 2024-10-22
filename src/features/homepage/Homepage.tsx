@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import Book from "../books/models/Book";
 import BookService from "../books/services/BookService";
-import BooksPage from "../books/BooksPage";
+import BooksPage from "../books/pages/BooksPage";
 import FiltersSideBar from "./components/Sidebar/FiltersSideBar";
 import Header from "./components/Header/Header";
 import { Language } from "../books/models/Language";

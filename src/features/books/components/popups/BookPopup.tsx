@@ -2,7 +2,7 @@ import "./BookPopup.css";
 
 import { FaRegTrashCan, FaX } from "react-icons/fa6";
 
-import Book from "../models/Book";
+import Book from "../../models/Book";
 import { FaEdit } from "react-icons/fa";
 import Modal from "react-modal";
 

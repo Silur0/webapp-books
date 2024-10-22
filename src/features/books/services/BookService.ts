@@ -10,6 +10,14 @@ interface SearchBookRequest {
     languages?: string[];
 }
 
+interface CreateBookRequest {
+    isbn: string;
+    title: string;
+    author: string;
+    publicationYear: string;
+    language: string;
+}
+
 class BookService {
     static readonly PREFIX = `/books`;
 
@@ -42,12 +50,29 @@ class BookService {
             request.key = key;
         }
 
-        console.log(request);
-
         let result = await HttpClient.post(
             `${BookService.PREFIX}/search`,
             request
         );
+        return result.data;
+    }
+
+    async create(
+        isbn: string,
+        title: string,
+        author: string,
+        publicationYear: string,
+        language: string
+    ): Promise<Book> {
+        let request: CreateBookRequest = {
+            isbn: isbn,
+            title: title,
+            author: author,
+            publicationYear: publicationYear,
+            language: language,
+        };
+
+        let result = await HttpClient.post(`${BookService.PREFIX}`, request);
         return result.data;
     }
 }

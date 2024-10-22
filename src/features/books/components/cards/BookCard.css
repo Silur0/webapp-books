@@ -1,4 +1,4 @@
-.content-card {
+.book-card-content-card {
     padding: 1rem 2rem;
     background-color: var(--BACKGROUND_DARK_I);
     border-radius: 10px;
@@ -8,11 +8,11 @@
     align-items: center;
 }
 
-.title {
+.book-card-title {
     color: black;
 }
 
-.info {
+.book-card-info {
     color: var(--BACKGROUND_DARK_III);
     text-align: right;
 }

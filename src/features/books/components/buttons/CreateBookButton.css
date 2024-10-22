@@ -1,0 +1,21 @@
+.create-book-content-card {
+    padding: 1rem 2rem;
+    background-color: var(--BACKGROUND_DARK_I);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.create-book-icon {
+    font-size: 1.5rem;
+    color: var(--BACKGROUND_DARK_III);
+}
+
+.create-book-text {
+    font-size: 1.25rem;
+    color: var(--BACKGROUND_DARK_III);
+    padding: 0 0.5rem;
+}

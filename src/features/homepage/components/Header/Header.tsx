@@ -1,6 +1,6 @@
 import "./Header.css";
 
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 
 import AuthContext from "../../../../lib/authentication/AuthContext";
 import { useNavigate } from "react-router-dom";

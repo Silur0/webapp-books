@@ -1,8 +1,7 @@
 import "./BookCard.css";
 
-import Book from "../models/Book";
-import BookPopup from "./BookPopup";
-import Modal from "react-modal";
+import Book from "../../models/Book";
+import BookPopup from "../popups/BookPopup";
 import { useState } from "react";
 
 interface BookCardProps {
@@ -16,15 +15,11 @@ export default function BookCard(props: BookCardProps) {
         setIsOpen(true);
     }
 
-    function closeModal() {
-        setIsOpen(false);
-    }
-
     return (
         <div>
-            <div className="content-card" onDoubleClick={openModal}>
-                <div className="title">{props.book.title}</div>
-                <div className="info">
+            <div className="book-card-content-card" onDoubleClick={openModal}>
+                <div className="book-card-title">{props.book.title}</div>
+                <div className="book-card-info ">
                     <div>{props.book.author}</div>
                     <div>{props.book.publicationYear}</div>
                 </div>

@@ -38,6 +38,7 @@ export default function LoginPage() {
                 }
             });
     };
+
     return (
         <form onSubmit={handleLogin}>
             <input
