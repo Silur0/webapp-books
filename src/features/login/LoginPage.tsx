@@ -1,6 +1,7 @@
 import "./LoginPage.css";
 
 import { AllValid } from "../../lib/components/inputs/validators/ValidateFormControls";
+import AppTitle from "../../lib/components/app-title/AppTitle";
 import AuthContext from "../../lib/authentication/AuthContext";
 import AuthService from "../../lib/authentication/AuthService";
 import { AxiosError } from "axios";
@@ -68,25 +69,37 @@ export default function LoginPage() {
 
     return (
         <BaseLayout>
-            <form className="login-form">
-                <CustomInput
-                    placeholder="Username"
-                    formControl={usernameFormControl}
-                />
-                <CustomInput
-                    type="password"
-                    placeholder="Password"
-                    formControl={passwordFormControl}
-                />
-                <div className="login-page-buttons ">
-                    <Button
-                        onClick={handleCancel}
-                        label="Cancel"
-                        type="secondary"
-                    />
-                    <Button onClick={handleLogin} label="Login" />
+            <div className="login-content">
+                <form className="login-form">
+                    <div className="login-input">
+                        <CustomInput
+                            placeholder="Username"
+                            formControl={usernameFormControl}
+                        />
+                    </div>
+                    <div className="login-input">
+                        <CustomInput
+                            type="password"
+                            placeholder="Password"
+                            formControl={passwordFormControl}
+                        />
+                    </div>
+
+                    <div className="login-page-buttons ">
+                        <Button
+                            onClick={handleCancel}
+                            label="Cancel"
+                            type="secondary"
+                        />
+                        <div className="login-button">
+                            <Button onClick={handleLogin} label="Login" />
+                        </div>
+                    </div>
+                </form>
+                <div className="login-title">
+                    <AppTitle />
                 </div>
-            </form>
+            </div>
         </BaseLayout>
     );
 }

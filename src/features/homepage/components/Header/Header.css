@@ -7,14 +7,6 @@
     height: 5rem;
 }
 
-.header-title {
-    font-size: 1.75rem;
-    color: var(--SECONDARY);
-}
-
-.header-menu {
-}
-
 .header-user {
     align-items: center;
     padding: 0 2rem;

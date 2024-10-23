@@ -13,5 +13,6 @@
 
 .base-layout-box {
     padding: 2rem;
+    border-radius: 10px;
     background-color: var(--BACKGROUND_DARK_I);
 }

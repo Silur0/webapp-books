@@ -2,6 +2,7 @@ import "./Header.css";
 
 import { useContext, useMemo } from "react";
 
+import AppTitle from "../../../../lib/components/app-title/AppTitle";
 import AuthContext from "../../../../lib/authentication/AuthContext";
 import Button from "../../../../lib/components/buttons/Button";
 import { useNavigate } from "react-router-dom";
@@ -24,10 +25,7 @@ export default function Header() {
 
     return (
         <header className="header">
-            <div className="header-title">
-                sword <br />
-                Book Collection
-            </div>
+            <AppTitle />
             <div className="header-menu">
                 {isAuth ? (
                     <>

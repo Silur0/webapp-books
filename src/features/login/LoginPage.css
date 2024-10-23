@@ -1,11 +1,31 @@
+.login-content {
+    display: flex;
+}
+
 .login-form {
     display: flex;
+    flex-grow: 1;
     justify-content: center;
     flex-direction: column;
+    padding: 2rem;
+}
+
+.login-title {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    border-left: 2px solid var(--BACKGROUND_DARK_II);
+}
+
+.login-input {
+    margin-bottom: 1em;
 }
 
 .login-page-buttons {
     display: flex;
     justify-content: end;
-    margin-top: 1rem;
+}
+
+.login-button {
+    margin-left: 1em;
 }
