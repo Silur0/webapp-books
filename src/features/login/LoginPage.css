@@ -3,3 +3,9 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.login-page-buttons {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+}

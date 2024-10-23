@@ -3,6 +3,7 @@ import "./Header.css";
 import { useContext, useMemo } from "react";
 
 import AuthContext from "../../../../lib/authentication/AuthContext";
+import Button from "../../../../lib/components/buttons/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
@@ -35,16 +36,12 @@ export default function Header() {
                                 ?.toUpperCase()
                                 .substring(0, 15)}
                         </span>
-                        <button className="button" onClick={logout}>
-                            Logout
-                        </button>
+                        <Button onClick={logout} label="Logout" />
                     </>
                 ) : (
                     <>
                         <span className="header-user">GUEST</span>
-                        <button className="button" onClick={login}>
-                            Login
-                        </button>
+                        <Button onClick={login} label="Login" />
                     </>
                 )}
             </div>

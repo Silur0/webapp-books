@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { AllValid } from "../../../../lib/components/inputs/validators/ValidateFormControls";
 import Book from "../../models/Book";
+import Button from "../../../../lib/components/buttons/Button";
 import CustomInput from "../../../../lib/components/inputs/CustomInput";
 import LanguageService from "../../services/LanguageService";
 import { useFormControl } from "../../../../lib/components/inputs/form/FormControl";
@@ -125,8 +126,12 @@ export default function BookForm(props: BookFormProps) {
                 defaultValue={language}
             />
             <div className="book-form-buttons">
-                <button onClick={handleCancel}>Cancel</button>
-                <button onClick={handleCreate}>Create</button>
+                <Button
+                    onClick={handleCancel}
+                    label="Cancel"
+                    type="secondary"
+                />
+                <Button onClick={handleCreate} label="Create" />
             </div>
         </form>
     );

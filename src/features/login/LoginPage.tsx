@@ -1,29 +1,48 @@
 import "./LoginPage.css";
 
-import { useContext, useState } from "react";
-
+import { AllValid } from "../../lib/components/inputs/validators/ValidateFormControls";
 import AuthContext from "../../lib/authentication/AuthContext";
 import AuthService from "../../lib/authentication/AuthService";
 import { AxiosError } from "axios";
 import BaseLayout from "../../lib/components/layouts/BaseLayout";
+import Button from "../../lib/components/buttons/Button";
+import CustomInput from "../../lib/components/inputs/CustomInput";
+import { error } from "console";
+import { useContext } from "react";
+import { useFormControl } from "../../lib/components/inputs/form/FormControl";
 import { useNavigate } from "react-router-dom";
 import { useServiceCall } from "../../lib/utils/ServiceCall";
+import { validateRequiredField } from "../../lib/components/inputs/validators/ValidateRequiredField";
 
 export default function LoginPage() {
     const navigate = useNavigate();
     const authContext = useContext(AuthContext);
 
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [error, setError] = useState("");
+    const usernameFormControl = useFormControl<string>({
+        validators: [validateRequiredField()],
+    });
+    const passwordFormControl = useFormControl<string>({
+        validators: [validateRequiredField()],
+    });
 
     const loginService = useServiceCall(AuthService.Login);
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
+        if (
+            !AllValid(
+                usernameFormControl.validate(),
+                passwordFormControl.validate()
+            )
+        )
+            return;
+
         await loginService
-            .invoke(username, password)
+            .invoke(
+                usernameFormControl.value ?? "",
+                passwordFormControl.value ?? ""
+            )
             .then((data) => {
                 const token: string = data.token;
 
@@ -34,29 +53,39 @@ export default function LoginPage() {
             })
             .catch((error) => {
                 if (error instanceof AxiosError) {
-                    setError(error.response?.data.message);
+                    passwordFormControl.setErrorMessages([
+                        error.response?.data.message,
+                    ]);
                     console.error("Login failed", error);
                 }
             });
     };
 
+    const handleCancel = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        navigate("/");
+    };
+
     return (
         <BaseLayout>
-            <form className="login-form" onSubmit={handleLogin}>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+            <form className="login-form">
+                <CustomInput
                     placeholder="Username"
+                    formControl={usernameFormControl}
                 />
-                <input
+                <CustomInput
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
+                    formControl={passwordFormControl}
                 />
-                <button type="submit">Login</button>
-                <div>{error}</div>
+                <div className="login-page-buttons ">
+                    <Button
+                        onClick={handleCancel}
+                        label="Cancel"
+                        type="secondary"
+                    />
+                    <Button onClick={handleLogin} label="Login" />
+                </div>
             </form>
         </BaseLayout>
     );

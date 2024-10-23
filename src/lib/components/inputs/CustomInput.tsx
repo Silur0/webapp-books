@@ -7,6 +7,7 @@ import { sanitizeInput } from "../../utils/StringUtils";
 type CustomInputProps = {
     formControl: IFormControl<string>;
     placeholder?: string;
+    type?: "text" | "password";
 };
 
 export default function CustomInput(props: CustomInputProps) {
@@ -23,7 +24,7 @@ export default function CustomInput(props: CustomInputProps) {
         <div className="custom-input-content">
             <input
                 className="custom-input"
-                type="text"
+                type={props.type ?? "type"}
                 placeholder={props.placeholder}
                 onChange={setValue}
                 onBlur={handleEndEditing}

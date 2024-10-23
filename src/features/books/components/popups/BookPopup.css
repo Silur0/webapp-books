@@ -61,6 +61,7 @@ hr {
 .recommendation-box {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 10rem;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -71,7 +72,12 @@ hr {
 .recommendation-title {
     font-weight: 600;
     color: var(--BACKGROUND_DARK_III);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.recommendation-info-box {
+    display: flex;
+    flex-direction: column;
 }
 
 .recommendation-info {

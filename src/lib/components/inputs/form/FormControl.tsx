@@ -8,6 +8,7 @@ export interface IFormControl<T> {
     value: Optional<T>;
     setValue: (value: Optional<T>) => void;
     errorMessages: string[];
+    setErrorMessages: React.Dispatch<React.SetStateAction<string[]>>;
     isValid: boolean;
     isDisabled: boolean;
     setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,28 +21,12 @@ export interface IUserFormControlParameters<T> {
     isDisabled?: boolean;
     validators?: ValidatorFunction<Optional<T>>[];
     enableAutoValidate?: boolean;
-    mask?: (
-        value: Optional<T>,
-        previousValue: Optional<T>,
-        setValue: React.Dispatch<React.SetStateAction<Optional<T>>>
-    ) => void;
 }
 
 export function useFormControl<T>(
     options: IUserFormControlParameters<T>
 ): IFormControl<T> {
-    const [value, _setValue] = useState<Optional<T>>(options?.initialValue);
-
-    const setValue = useCallback(
-        (newValue: Optional<T>) => {
-            if (options?.mask) {
-                options.mask!(newValue, value, _setValue);
-            } else {
-                _setValue(newValue);
-            }
-        },
-        [value]
-    );
+    const [value, setValue] = useState<Optional<T>>(options?.initialValue);
 
     const [isDisabled, setIsDisabled] = useState<boolean>(
         options?.isDisabled || false
@@ -98,6 +83,7 @@ export function useFormControl<T>(
         isDisabled,
         setIsDisabled,
         hasErrors,
+        setErrorMessages,
         errorMessages,
         isValid,
         validate,

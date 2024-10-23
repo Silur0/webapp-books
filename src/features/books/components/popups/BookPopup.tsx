@@ -112,17 +112,19 @@ export default function BookPopup(props: BookPopupProps) {
                                         <div className="recommendation-title">
                                             {e.title}
                                         </div>
-                                        <div className="recommendation-info">
-                                            {e.isbn}
-                                        </div>
-                                        <div className="recommendation-info">
-                                            {e.author}
-                                        </div>
-                                        <div className="recommendation-info">
-                                            {e.publicationYear}
-                                        </div>
-                                        <div className="recommendation-info">
-                                            {e.language}
+                                        <div className="recommendation-info-box">
+                                            <div className="recommendation-info">
+                                                {e.isbn}
+                                            </div>
+                                            <div className="recommendation-info">
+                                                {e.author}
+                                            </div>
+                                            <div className="recommendation-info">
+                                                {e.publicationYear}
+                                            </div>
+                                            <div className="recommendation-info">
+                                                {e.language}
+                                            </div>
                                         </div>
                                     </div>
                                 );
