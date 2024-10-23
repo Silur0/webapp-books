@@ -1,4 +1,5 @@
 import Book from "../models/Book";
+import { BookRecommendation } from "../models/BookRecommendation";
 import HttpClient from "../../../lib/http/HttpClient";
 import { Language } from "../models/Language";
 import PaginatedResponse from "../../../lib/api/PaginatedResponse";
@@ -114,6 +115,15 @@ class BookService {
 
     async delete(id: number): Promise<boolean> {
         let result = await HttpClient.delete(`${BookService.PREFIX}/${id}`);
+        return result.data;
+    }
+
+    async getRecommendations(
+        id: number
+    ): Promise<PaginatedResponse<BookRecommendation>> {
+        let result = await HttpClient.get(
+            `${BookService.PREFIX}/${id}/recommendations`
+        );
         return result.data;
     }
 }

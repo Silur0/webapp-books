@@ -1,14 +1,15 @@
 import "./BookPopup.css";
 
 import { FaRegTrashCan, FaX } from "react-icons/fa6";
+import { useContext, useEffect, useState } from "react";
 
 import AuthContext from "../../../../lib/authentication/AuthContext";
 import Book from "../../models/Book";
+import { BookRecommendation } from "../../models/BookRecommendation";
 import BookService from "../../services/BookService";
 import { FaEdit } from "react-icons/fa";
 import { Logger } from "../../../../lib/logger/Logger";
 import Modal from "react-modal";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useServiceCall } from "../../../../lib/utils/ServiceCall";
 
@@ -22,7 +23,13 @@ export default function BookPopup(props: BookPopupProps) {
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const [recommendations, setRecommendations] =
+        useState<BookRecommendation[]>();
+
     const deleteBookService = useServiceCall(BookService.delete);
+    const getRecommendationsService = useServiceCall(
+        BookService.getRecommendations
+    );
 
     const closeModal = () => {
         props.setIsOpen(false);
@@ -43,6 +50,14 @@ export default function BookPopup(props: BookPopupProps) {
     const handleUpdate = () => {
         navigate(`/books/update/${props.book.id}`);
     };
+
+    useEffect(() => {
+        if (!props.isModel || recommendations) return;
+
+        getRecommendationsService.invoke(props.book.id).then((data) => {
+            setRecommendations(data.items.slice(0, 3));
+        });
+    }, [props.isModel]);
 
     return (
         <Modal
@@ -87,9 +102,34 @@ export default function BookPopup(props: BookPopupProps) {
                 <div className="modal-body">
                     <h4>Recommendations</h4>
                     <div className="modal-recommendations">
-                        <div className="recommendation-box"></div>
-                        <div className="recommendation-box"></div>
-                        <div className="recommendation-box"></div>
+                        {recommendations ? (
+                            recommendations?.map((e) => {
+                                return (
+                                    <div
+                                        key={e.isbn}
+                                        className="recommendation-box"
+                                    >
+                                        <div className="recommendation-title">
+                                            {e.title}
+                                        </div>
+                                        <div className="recommendation-info">
+                                            {e.isbn}
+                                        </div>
+                                        <div className="recommendation-info">
+                                            {e.author}
+                                        </div>
+                                        <div className="recommendation-info">
+                                            {e.publicationYear}
+                                        </div>
+                                        <div className="recommendation-info">
+                                            {e.language}
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div>Is Loading</div>
+                        )}
                     </div>
                 </div>
             </div>
