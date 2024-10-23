@@ -6,6 +6,8 @@ The frontend is implemented using React.js, utilizing essential libraries such a
 
 -   **Node.js**: v20.18.0
 
+### Instalation
+
 1. Install dependencies
 
 ```bash
