@@ -23,6 +23,7 @@ type BookFormProps = {
         publicationYear: string,
         language: string
     ) => void;
+    label: string;
     book?: Book;
 };
 
@@ -111,27 +112,46 @@ export default function BookForm(props: BookFormProps) {
 
     return (
         <form className="book-form-content">
-            <CustomInput placeholder="Title" formControl={titleFormControl} />
-            <CustomInput placeholder="ISBN" formControl={isbnFormControl} />
-            <CustomInput placeholder="Author" formControl={authorFormControl} />
-            <CustomInput
-                placeholder="Publication Year"
-                formControl={publicationYearFormControl}
-            />
-            <Select
-                ref={selectRef}
-                onChange={setLanguage}
-                options={languages}
-                placeholder="Language"
-                defaultValue={language}
-            />
+            <div className="book-form-title">{props.label} Book</div>
+            <div className="book-form-input">
+                <CustomInput
+                    placeholder="Title"
+                    formControl={titleFormControl}
+                />
+            </div>
+            <div className="book-form-input">
+                <CustomInput placeholder="ISBN" formControl={isbnFormControl} />
+            </div>
+            <div className="book-form-input">
+                <CustomInput
+                    placeholder="Author"
+                    formControl={authorFormControl}
+                />
+            </div>
+            <div className="book-form-input">
+                <CustomInput
+                    placeholder="Publication Year"
+                    formControl={publicationYearFormControl}
+                />
+            </div>
+            <div className="book-form-input">
+                <Select
+                    ref={selectRef}
+                    onChange={setLanguage}
+                    options={languages}
+                    placeholder="Language"
+                    defaultValue={language}
+                />
+            </div>
             <div className="book-form-buttons">
                 <Button
                     onClick={handleCancel}
                     label="Cancel"
                     type="secondary"
                 />
-                <Button onClick={handleCreate} label="Create" />
+                <div className="book-form-button">
+                    <Button onClick={handleCreate} label={props.label} />
+                </div>
             </div>
         </form>
     );

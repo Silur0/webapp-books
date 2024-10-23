@@ -47,7 +47,7 @@ export default function UpdateBookPage() {
 
     return (
         <BaseLayout>
-            <BookForm onSubmit={handleUpdate} book={book} />
+            <BookForm onSubmit={handleUpdate} book={book} label="Update" />
         </BaseLayout>
     );
 }

@@ -4,8 +4,22 @@
     flex-direction: column;
 }
 
+.book-form-title {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--SECONDARY);
+}
+
 .book-form-buttons {
     display: flex;
     justify-content: end;
-    margin-top: 1rem;
+}
+
+.book-form-input {
+    margin-bottom: 1rem;
+}
+
+.book-form-button {
+    margin-left: 1rem;
 }

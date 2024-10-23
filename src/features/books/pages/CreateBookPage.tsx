@@ -30,7 +30,7 @@ export default function CreateBookPage() {
 
     return (
         <BaseLayout>
-            <BookForm onSubmit={handleCreate} />
+            <BookForm onSubmit={handleCreate} label="Create" />
         </BaseLayout>
     );
 }
