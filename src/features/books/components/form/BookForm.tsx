@@ -101,11 +101,11 @@ export default function BookForm(props: BookFormProps) {
     useEffect(() => {
         if (props.book?.language) {
             let language = languages.find(
-                (e) => e.label == props.book?.language
+                (e) => e.label === props.book?.language
             );
             if (language) selectRef.current.setValue(language);
         } else {
-            let language = languages.find((e) => e.label == "English");
+            let language = languages.find((e) => e.label === "English");
             if (language) selectRef.current.setValue(language);
         }
     }, [props.book?.language, languages]);

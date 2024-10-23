@@ -1,6 +1,5 @@
-import { LanguageExpanded } from "../models/Language";
-
 import HttpClient from "../../../lib/http/HttpClient";
+import { LanguageExpanded } from "../models/Language";
 import PaginatedResponse from "../../../lib/api/PaginatedResponse";
 
 class LanguageService {
