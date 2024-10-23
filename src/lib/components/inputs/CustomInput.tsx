@@ -12,7 +12,7 @@ type CustomInputProps = {
 export default function CustomInput(props: CustomInputProps) {
     const setValue = (e: ChangeEvent<HTMLInputElement>) => {
         let sanitizedValue = sanitizeInput(e.target.value);
-        props.formControl.setValue(sanitizedValue.trim());
+        props.formControl.setValue(sanitizedValue);
     };
 
     const handleEndEditing = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +27,7 @@ export default function CustomInput(props: CustomInputProps) {
                 placeholder={props.placeholder}
                 onChange={setValue}
                 onBlur={handleEndEditing}
+                value={props.formControl.value}
             />
             {props.formControl.hasErrors ? (
                 <div className="custom-input-error">

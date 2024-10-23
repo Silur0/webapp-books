@@ -8,6 +8,7 @@ import CreateBookPage from "./features/books/pages/CreateBookPage";
 import Homepage from "./features/homepage/Homepage";
 import LoginPage from "./features/login/LoginPage";
 import ProtectedRoute from "./lib/authentication/ProtectedRoute";
+import UpdateBookPage from "./features/books/pages/UpdateBookPage";
 
 function App() {
     return (
@@ -17,10 +18,18 @@ function App() {
                     <Route path="/" element={<Homepage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route
-                        path="/create"
+                        path="books/create"
                         element={
                             <ProtectedRoute>
                                 <CreateBookPage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/books/update/:id"
+                        element={
+                            <ProtectedRoute>
+                                <UpdateBookPage />
                             </ProtectedRoute>
                         }
                     />

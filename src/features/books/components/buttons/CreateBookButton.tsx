@@ -7,7 +7,7 @@ export default function CreateBookButton() {
     const navigate = useNavigate();
 
     const navigateCreate = () => {
-        navigate("/create");
+        navigate("books/create");
     };
 
     return (

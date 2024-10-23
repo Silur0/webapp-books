@@ -1,10 +1,12 @@
 import "./FiltersSideBar.css";
 
 import Select, { MultiValue } from "react-select";
+import { useEffect, useMemo } from "react";
 
+import CustomInput from "../../../../lib/components/inputs/CustomInput";
 import { Language } from "../../../books/models/Language";
 import { PublicationYear } from "../../../books/models/PublicationYear";
-import { useMemo } from "react";
+import { useFormControl } from "../../../../lib/components/inputs/form/FormControl";
 
 interface FiltersSideBarProps {
     languages: Language[];
@@ -15,6 +17,8 @@ interface FiltersSideBarProps {
 }
 
 export default function FiltersSideBar(props: FiltersSideBarProps) {
+    const searchKeyFormControl = useFormControl<string>({});
+
     const filteredLanguages = useMemo(() => {
         return props.languages.map((e) => ({
             value: e.language,
@@ -49,18 +53,16 @@ export default function FiltersSideBar(props: FiltersSideBarProps) {
         );
     };
 
-    const setKey = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.setSearchKey(e.target.value);
-    };
+    useEffect(() => {
+        props.setSearchKey(searchKeyFormControl.value ?? "");
+    }, [searchKeyFormControl.value]);
 
     return (
         <div className="sidebar">
             <div className="search-container">
-                <input
-                    type="text"
+                <CustomInput
                     placeholder="Search..."
-                    className="search-input"
-                    onChange={setKey}
+                    formControl={searchKeyFormControl}
                 />
             </div>
             <div className="">

@@ -4,9 +4,13 @@ import { FaRegTrashCan, FaX } from "react-icons/fa6";
 
 import AuthContext from "../../../../lib/authentication/AuthContext";
 import Book from "../../models/Book";
+import BookService from "../../services/BookService";
 import { FaEdit } from "react-icons/fa";
+import { Logger } from "../../../../lib/logger/Logger";
 import Modal from "react-modal";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useServiceCall } from "../../../../lib/utils/ServiceCall";
 
 interface BookPopupProps {
     book: Book;
@@ -16,9 +20,28 @@ interface BookPopupProps {
 
 export default function BookPopup(props: BookPopupProps) {
     const authContext = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const deleteBookService = useServiceCall(BookService.delete);
 
     const closeModal = () => {
         props.setIsOpen(false);
+    };
+
+    const handleDelete = () => {
+        deleteBookService
+            .invoke(props.book.id)
+            .then((data) => {
+                navigate("/");
+                closeModal();
+            })
+            .catch((e) => {
+                Logger.error(e);
+            });
+    };
+
+    const handleUpdate = () => {
+        navigate(`/books/update/${props.book.id}`);
     };
 
     return (
@@ -33,8 +56,14 @@ export default function BookPopup(props: BookPopupProps) {
                     <div className="modal-icons">
                         {authContext?.authToken ? (
                             <>
-                                <FaEdit className="modal-icon" />
-                                <FaRegTrashCan className="modal-icon" />
+                                <FaEdit
+                                    className="modal-icon"
+                                    onClick={handleUpdate}
+                                />
+                                <FaRegTrashCan
+                                    className="modal-icon"
+                                    onClick={handleDelete}
+                                />
                             </>
                         ) : null}
                         <FaX className="modal-icon" onClick={closeModal} />

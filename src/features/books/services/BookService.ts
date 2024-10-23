@@ -18,11 +18,24 @@ interface CreateBookRequest {
     language: string;
 }
 
+interface UpdateBookRequest {
+    isbn?: string;
+    title?: string;
+    author?: string;
+    publicationYear?: string;
+    language?: string;
+}
+
 class BookService {
     static readonly PREFIX = `/books`;
 
     async getAll(): Promise<PaginatedResponse<Book>> {
         let result = await HttpClient.get(`${BookService.PREFIX}/`);
+        return result.data;
+    }
+
+    async get(id: string): Promise<Book> {
+        let result = await HttpClient.get(`${BookService.PREFIX}/${id}`);
         return result.data;
     }
 
@@ -73,6 +86,34 @@ class BookService {
         };
 
         let result = await HttpClient.post(`${BookService.PREFIX}`, request);
+        return result.data;
+    }
+
+    async update(
+        id: number,
+        isbn?: string,
+        title?: string,
+        author?: string,
+        publicationYear?: string,
+        language?: string
+    ): Promise<Book> {
+        let request: UpdateBookRequest = {
+            isbn: isbn,
+            title: title,
+            author: author,
+            publicationYear: publicationYear,
+            language: language,
+        };
+
+        let result = await HttpClient.put(
+            `${BookService.PREFIX}/${id}`,
+            request
+        );
+        return result.data;
+    }
+
+    async delete(id: number): Promise<boolean> {
+        let result = await HttpClient.delete(`${BookService.PREFIX}/${id}`);
         return result.data;
     }
 }

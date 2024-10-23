@@ -1,0 +1,11 @@
+.book-form-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.book-form-buttons {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+}
