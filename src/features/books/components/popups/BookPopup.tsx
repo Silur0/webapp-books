@@ -9,6 +9,7 @@ import Book from "../../models/Book";
 import { BookRecommendation } from "../../models/BookRecommendation";
 import BookService from "../../services/BookService";
 import { FaEdit } from "react-icons/fa";
+import LoadingIndicator from "../../../../lib/components/loading/LoadingIndicator";
 import { Logger } from "../../../../lib/logger/Logger";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
@@ -138,7 +139,7 @@ export default function BookPopup(props: BookPopupProps) {
                                 );
                             })
                         ) : (
-                            <div>Is Loading</div>
+                            <LoadingIndicator />
                         )}
                     </div>
                 </div>
