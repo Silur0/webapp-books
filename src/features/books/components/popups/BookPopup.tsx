@@ -1,6 +1,7 @@
 import "./BookPopup.css";
 
 import { FaRegTrashCan, FaX } from "react-icons/fa6";
+import { ToastContainer, toast } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 
 import AuthContext from "../../../../lib/authentication/AuthContext";
@@ -42,8 +43,9 @@ export default function BookPopup(props: BookPopupProps) {
                 navigate("/");
                 closeModal();
             })
-            .catch((e) => {
-                Logger.error(e);
+            .catch((error) => {
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
             });
     };
 
@@ -54,9 +56,15 @@ export default function BookPopup(props: BookPopupProps) {
     useEffect(() => {
         if (!props.isModel || recommendations) return;
 
-        getRecommendationsService.invoke(props.book.id).then((data) => {
-            setRecommendations(data.items.slice(0, 3));
-        });
+        getRecommendationsService
+            .invoke(props.book.id)
+            .then((data) => {
+                setRecommendations(data.items.slice(0, 3));
+            })
+            .catch((error) => {
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
+            });
     }, [props.isModel]);
 
     return (

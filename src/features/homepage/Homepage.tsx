@@ -8,7 +8,9 @@ import BooksPage from "../books/pages/BooksPage";
 import FiltersSideBar from "./components/Sidebar/FiltersSideBar";
 import Header from "./components/Header/Header";
 import { Language } from "../books/models/Language";
+import { Logger } from "../../lib/logger/Logger";
 import { PublicationYear } from "../books/models/PublicationYear";
+import { toast } from "react-toastify";
 import { useServiceCall } from "../../lib/utils/ServiceCall";
 
 export default function Homepage() {
@@ -25,12 +27,24 @@ export default function Homepage() {
     const searchBooksService = useServiceCall(BookService.search);
 
     useEffect(() => {
-        getLanguagesService.invoke().then((data) => {
-            setLanguages(data.items);
-        });
-        getYearsService.invoke().then((data) => {
-            setYears(data.items);
-        });
+        getLanguagesService
+            .invoke()
+            .then((data) => {
+                setLanguages(data.items);
+            })
+            .catch((error) => {
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
+            });
+        getYearsService
+            .invoke()
+            .then((data) => {
+                setYears(data.items);
+            })
+            .catch((error) => {
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
+            });
     }, []);
 
     useEffect(() => {
@@ -38,6 +52,10 @@ export default function Homepage() {
             .invoke(searchKey, selectedYears, selectedLanguages)
             .then((data) => {
                 setBooks(data.items);
+            })
+            .catch((error) => {
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
             });
     }, [selectedLanguages, selectedYears, searchKey]);
 

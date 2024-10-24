@@ -1,5 +1,6 @@
 import "../src/lib/styles/colors.css";
 import "../src/lib/styles/main.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -8,11 +9,13 @@ import CreateBookPage from "./features/books/pages/CreateBookPage";
 import Homepage from "./features/homepage/Homepage";
 import LoginPage from "./features/login/LoginPage";
 import ProtectedRoute from "./lib/authentication/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
 import UpdateBookPage from "./features/books/pages/UpdateBookPage";
 
 function App() {
     return (
         <AuthProvider>
+            <ToastContainer theme="dark" />
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Homepage />} />

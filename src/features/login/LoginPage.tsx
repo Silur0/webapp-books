@@ -1,5 +1,7 @@
 import "./LoginPage.css";
 
+import { ToastContainer, toast } from "react-toastify";
+
 import { AllValid } from "../../lib/components/inputs/validators/ValidateFormControls";
 import AppTitle from "../../lib/components/app-title/AppTitle";
 import AuthContext from "../../lib/authentication/AuthContext";
@@ -8,6 +10,7 @@ import { AxiosError } from "axios";
 import BaseLayout from "../../lib/components/layouts/BaseLayout";
 import Button from "../../lib/components/buttons/Button";
 import CustomInput from "../../lib/components/inputs/CustomInput";
+import { Logger } from "../../lib/logger/Logger";
 import { useContext } from "react";
 import { useFormControl } from "../../lib/components/inputs/form/FormControl";
 import { useNavigate } from "react-router-dom";
@@ -56,7 +59,10 @@ export default function LoginPage() {
                     passwordFormControl.setErrorMessages([
                         error.response?.data.message,
                     ]);
-                    console.error("Login failed", error);
+                    Logger.error("Login failed", error);
+                } else {
+                    Logger.error(error.response);
+                    toast.error(error.response.data.message);
                 }
             });
     };

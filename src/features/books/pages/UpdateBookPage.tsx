@@ -7,6 +7,8 @@ import BaseLayout from "../../../lib/components/layouts/BaseLayout";
 import Book from "../models/Book";
 import BookForm from "../components/form/BookForm";
 import BookService from "../services/BookService";
+import { Logger } from "../../../lib/logger/Logger";
+import { toast } from "react-toastify";
 import { useServiceCall } from "../../../lib/utils/ServiceCall";
 
 export default function UpdateBookPage() {
@@ -20,9 +22,15 @@ export default function UpdateBookPage() {
     useEffect(() => {
         if (!id) return;
 
-        getBookService.invoke(id).then((data) => {
-            setBook(data);
-        });
+        getBookService
+            .invoke(id)
+            .then((data) => {
+                setBook(data);
+            })
+            .catch((error) => {
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
+            });
     }, [id]);
 
     const handleUpdate = (
@@ -39,7 +47,8 @@ export default function UpdateBookPage() {
                 navigate("/");
             })
             .catch((error) => {
-                console.log(error);
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
             });
     };
 

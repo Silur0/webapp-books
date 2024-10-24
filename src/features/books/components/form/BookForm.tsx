@@ -1,6 +1,7 @@
 import "./BookForm.css";
 
 import Select, { SingleValue } from "react-select";
+import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 
 import { AllValid } from "../../../../lib/components/inputs/validators/ValidateFormControls";
@@ -8,6 +9,7 @@ import Book from "../../models/Book";
 import Button from "../../../../lib/components/buttons/Button";
 import CustomInput from "../../../../lib/components/inputs/CustomInput";
 import LanguageService from "../../services/LanguageService";
+import { Logger } from "../../../../lib/logger/Logger";
 import { useFormControl } from "../../../../lib/components/inputs/form/FormControl";
 import { useNavigate } from "react-router-dom";
 import { useServiceCall } from "../../../../lib/utils/ServiceCall";
@@ -41,14 +43,20 @@ export default function BookForm(props: BookFormProps) {
     const getLanguagesService = useServiceCall(LanguageService.getAll);
 
     useEffect(() => {
-        getLanguagesService.invoke().then((data) => {
-            setLanguages(
-                data.items.map((e) => ({
-                    value: e.code,
-                    label: e.name,
-                }))
-            );
-        });
+        getLanguagesService
+            .invoke()
+            .then((data) => {
+                setLanguages(
+                    data.items.map((e) => ({
+                        value: e.code,
+                        label: e.name,
+                    }))
+                );
+            })
+            .catch((error) => {
+                Logger.error(error.response);
+                toast.error(error.response.data.message);
+            });
     }, []);
 
     const isbnFormControl = useFormControl<string>({
